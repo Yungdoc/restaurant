@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Miles Restaurant - Make An Order</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            background-color: #f8f8f8;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Navigation Styles */
+        .nav {
+            background-color: black;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0 50px;
+        }
+
+        .nav h1 {
+            color: #fff;
+            font-size: 28px;
+        }
+
+        .name-span {
+            color: orangered;
+            font-size: 13px;
+        }
+
+        .title-span {
+            color: orangered;
+        }
+
+        .logo {
+            color: red;
+        }
+
+        .navLink {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            font-size: 18px;
+        }
+
+        .navLink a:hover {
+            color: orangered;
+            text-decoration: underline;
+            text-decoration-color: orangered;
+            text-decoration-thickness: 2px;
+            transition: 0.3s;
+            margin-top: 15px;
+        }
+
+        .navLink a {
+            text-decoration: none;
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+
+        .search-btn {
+            border-radius: 25px;
+            padding: 10px 25px;
+            border: 2px solid orangered;
+            background-color: orangered;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .search-btn:hover {
+            background-color: transparent;
+            color: orangered;
+        }
+
+        /* Hamburger Menu Styles */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 5px;
+            z-index: 1002;
+        }
+
+        .bar {
+            width: 30px;
+            height: 3px;
+            background-color: #fff;
+            margin: 3px 0;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+
+        .hamburger.active .bar:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active .bar:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active .bar:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 300px;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            transition: right 0.3s ease;
+            z-index: 1001;
+            padding-top: 80px;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu a {
+            display: block;
+            color: #fff;
+            text-decoration: none;
+            padding: 20px 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            font-size: 18px;
+        }
+
+        .mobile-menu a:hover {
+            background-color: orangered;
+            transform: translateX(10px);
+        }
+
+        .mobile-menu .reservations-btn {
+            margin: 20px 30px;
+            padding: 12px 25px;
+            background-color: orangered;
+            border: 2px solid orangered;
+            border-radius: 25px;
+            color: white;
+            text-align: center;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu .reservations-btn:hover {
+            background-color: transparent;
+            color: orangered;
+        }
+
+        /* Overlay for mobile menu */
+        .menu-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        .menu-overlay.active {
+            display: block;
+        }
+
+        /* Main Content Styles */
+        .header-tag {
+            text-align: center;
+            margin: 40px 0;
+            font-size: 2.5rem;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .top-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .top-cont {
+            display: flex;
+            gap: 50px;
+            align-items: flex-start;
+            justify-content: center;
+        }
+
+        /* Form Styles */
+        .form-cls {
+            flex: 1;
+            max-width: 500px;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .form-cls h2 {
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.8rem;
+        }
+
+        input[type=text], 
+        input[type=email], 
+        input[type=password], 
+        input[type=tel], 
+        textarea {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background-color: #f9f9f9;
+        }
+
+        input[type=text]:focus,
+        input[type=email]:focus,
+        input[type=password]:focus,
+        input[type=tel]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: orangered;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(255, 69, 0, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+            font-family: inherit;
+        }
+
+        .btn1 {
+            width: 100%;
+            background: linear-gradient(45deg, orangered, #ff4500);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .btn1:hover {
+            background: linear-gradient(45deg, #ff4500, orangered);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 69, 0, 0.3);
+        }
+
+        /* Image Container */
+        .image-container {
+            flex: 1;
+            max-width: 500px;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .image-container img:hover {
+            transform: scale(1.02);
+        }
+
+        /* Features Section */
+        .features {
+            background: white;
+            margin: 50px 0;
+            padding: 50px 0;
+        }
+
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 2.2rem;
+            color: #333;
+            margin-bottom: 40px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: 30px 20px;
+            border-radius: 15px;
+            background: #f9f9f9;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            background: white;
+        }
+
+        .feature-item i {
+            font-size: 3rem;
+            color: orangered;
+            margin-bottom: 20px;
+        }
+
+        .feature-item h3 {
+            color: #333;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .feature-item p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Footer Styles */
+        .footer {
+            background: linear-gradient(135deg, #1a1a1a 0%, #000 100%);
+            color: white;
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-section h3 {
+            color: orangered;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: orangered;
+        }
+
+        .footer-logo h2 {
+            color: red;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .footer-logo .name-span {
+            color: orangered;
+            font-size: 13px;
+        }
+
+        .footer-logo .title-span {
+            color: orangered;
+        }
+
+        .footer-logo p {
+            color: #ccc;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: orangered;
+            color: white;
+            border-radius: 50%;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+
+        .social-links a:hover {
+            background-color: #ff4500;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 69, 0, 0.4);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-section ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-left: 0;
+        }
+
+        .footer-section ul li a:hover {
+            color: orangered;
+            padding-left: 10px;
+        }
+
+        .footer-section ul li a::before {
+            content: '→';
+            opacity: 0;
+            position: absolute;
+            left: -15px;
+            transition: all 0.3s ease;
+        }
+
+        .footer-section ul li a:hover::before {
+            opacity: 1;
+            left: -10px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .contact-item i {
+            color: orangered;
+            font-size: 1.2rem;
+            margin-top: 2px;
+            min-width: 20px;
+        }
+
+        .contact-item p {
+            color: #ccc;
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        .hours-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #333;
+        }
+
+        .hours-item span:first-child {
+            color: #ccc;
+            font-weight: 500;
+        }
+
+        .hours-item span:last-child {
+            color: orangered;
+            font-weight: bold;
+        }
+
+        .reservation-cta {
+            margin-top: 25px;
+        }
+
+        .footer-btn {
+            display: inline-block;
+            background-color: orangered;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: 2px solid orangered;
+        }
+
+        .footer-btn:hover {
+            background-color: transparent;
+            color: orangered;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 69, 0, 0.3);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #333;
+            padding: 25px 0;
+        }
+
+        .footer-bottom-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-bottom p {
+            color: #999;
+            margin: 0;
+        }
+
+        .footer-links {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: orangered;
+        }
+
+        .footer-links span {
+            color: #666;
+        }
+
+        /* Notification Styles */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 25px;
+            z-index: 10000;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transform: translateX(300px);
+            transition: transform 0.3s ease;
+            font-weight: bold;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        /* Mobile Styles */
+        @media only screen and (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .navLink,
+            .search {
+                display: none;
+            }
+
+            .nav-bar {
+                margin: 0 20px;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .header-tag {
+                font-size: 2rem;
+                margin: 30px 20px;
+            }
+
+            .top-cont {
+                display: block;
+                gap: 0;
+            }
+
+            .form-cls {
+                margin-bottom: 30px;
+                padding: 20px;
+            }
+
+            .image-container {
+                margin-top: 20px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .feature-item {
+                padding: 20px 15px;
+            }
+
+            /* Footer Mobile Styles */
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                padding: 40px 20px 30px;
+            }
+
+            .footer-section h3::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .footer-section:first-child {
+                text-align: center;
+            }
+
+            .footer-section:first-child h3::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+
+            .footer-bottom-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+
+            .footer-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+
+        /* Tablet Styles */
+        @media only screen and (min-width: 769px) and (max-width: 1024px) {
+            .nav-bar {
+                margin: 0 30px;
+            }
+
+            .top-cont {
+                flex-direction: column;
+                align-items: center;
+                gap: 30px;
+            }
+
+            .navLink {
+                gap: 20px;
+                font-size: 16px;
+            }
+
+            .hamburger,
+            .mobile-menu {
+                display: none;
+            }
+        }
+
+        /* Large Desktop Styles */
+        @media only screen and (min-width: 1200px) {
+            .nav-bar {
+                margin: 0 100px;
+            }
+
+            .hamburger,
+            .mobile-menu {
+                display: none;
+            }
+        }
+
+        /* Ensure desktop menu shows on larger screens */
+        @media only screen and (min-width: 769px) {
+            .navLink,
+            .search {
+                display: flex;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="nav">
+        <div class="nav-bar">
+            <h1 class="logo">🍽️<span class="name-span">Miles</span>Restau<span class="title-span">rant</span></h1>
+            
+            <div class="navLink">
+                <a href="Home.html">Home</a>
+                <a href="Menu.html">Menu</a>
+                <a href="Package.html">Package</a>
+                <a href="Gallery.html">Gallery</a>
+                <a href="Order.html">Order</a>
+                 <a href="About.html">About</a>
+            </div>
+            
+            <div class="search">
+                <a href="reservation.html" class="search-btn">Reservation</a>
+            </div>
+            
+            <!-- Hamburger Menu -->
+            <div class="hamburger" id="hamburger">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="Home.html">Home</a>
+        <a href="Menu.html">Menu</a>
+        <a href="Package.html">Package</a>
+        <a href="Gallery.html">Gallery</a>
+        <a href="Order.html">Order</a>
+         <a href="About.html">About</a>
+        <a href="reservation.html" class="reservations-btn">Reservation</a>
+    </div>
+
+    <main>
+        <h1 class="header-tag">Make An Order</h1>
+
+        <div class="top-container">
+            <div class="top-cont">
+                <div class="form-cls">
+                    <h2>Order Details</h2>
+                    <form action="/action_page.php" method="POST">
+                        <input type="text" id="fname" name="firstname" placeholder="First Name *" required>
+                        <input type="text" id="lname" name="lastname" placeholder="Last Name *" required>
+                        <input type="email" id="email" name="email" placeholder="Email Address *" required>
+                        <input type="password" id="password" name="password" placeholder="Password *" required>
+                        <input type="tel" id="phone" name="phone" placeholder="Phone Number *" required>
+                        <textarea name="address" placeholder="Delivery Address *" required></textarea>
+                        <textarea name="special_instructions" placeholder="Special Instructions (Optional)"></textarea>
+                    </form>
+                    <button class="btn1" onclick="processOrder()">
+                        <i class="fas fa-shopping-cart"></i> Place Order Now
+                    </button>
+                </div>
+                
+                <div class="image-container">
+                    <img src="orderfood.avif" alt="Delicious Food">
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <section class="features">
+            <div class="features-container">
+                <h2>Why Order From Us?</h2>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <i class="fas fa-clock"></i>
+                        <h3>Fast Delivery</h3>
+                        <p>Hot, fresh meals delivered to your doorstep in 30 minutes or less. Our efficient delivery system ensures your food arrives at the perfect temperature.</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Quality Guaranteed</h3>
+                        <p>We use only the freshest ingredients and maintain the highest food safety standards. Your satisfaction is our top priority.</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-credit-card"></i>
+                        <h3>Secure Payment</h3>
+                        <p>Multiple payment options available with bank-level security. Your personal and payment information is always protected.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <h2>🍽️<span class="name-span">Miles</span>Restau<span class="title-span">rant</span></h2>
+                    <p>Experience culinary excellence in every bite. Where tradition meets innovation to create unforgettable dining moments.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="Home.html">Home</a></li>
+                    <li><a href="Menu.html">Our Menu</a></li>
+                    <li><a href="Package.html">Packages</a></li>
+                    <li><a href="Gallery.html">Gallery</a></li>
+                    <li><a href="Order.html">Order Online</a></li>
+                    <li><a href="About.html">About Us</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Contact Info</h3>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                        <p>123 Culinary Street</p>
+                        <p>Onitsha, Anambra State</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <p>+234 (0) 123 456 7890</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <p>info@milesrestaurant.com</p>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h3>Opening Hours</h3>
+                <div class="hours-item">
+                    <span>Monday - Thursday</span>
+                    <span>11:00 AM - 10:00 PM</span>
+                </div>
+                <div class="hours-item">
+                    <span>Friday - Saturday</span>
+                    <span>11:00 AM - 11:00 PM</span>
+                </div>
+                <div class="hours-item">
+                    <span>Sunday</span>
+                    <span>12:00 PM - 9:00 PM</span>
+                </div>
+                <div class="reservation-cta">
+                    <a href="reservation.html" class="footer-btn">Make Reservation</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="footer-bottom-content">
+                <p>&copy; 2024 Miles Restaurant. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#privacy">Privacy Policy</a>
+                    <span>|</span>
+                    <a href="#terms">Terms of Service</a>
+                    <span>|</span>
+                    <a href="#sitemap">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuOverlay = document.getElementById('menuOverlay');
+        const mobileMenuLinks = document.querySelectorAll('.mobile-menu a');
+
+        // Toggle mobile menu
+        function toggleMobileMenu() {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            menuOverlay.classList.toggle('active');
+            
+            // Prevent body scroll when menu is open
+            if (mobileMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Close mobile menu
+        function closeMobileMenu() {
+            hamburger.classList.remove('active');
+            mobileMenu.classList.remove('active');
+            menuOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Event listeners
+        hamburger.addEventListener('click', toggleMobileMenu);
+        menuOverlay.addEventListener('click', closeMobileMenu);
+
+        // Close menu when clicking on links
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
+        });
+
+        // Close menu on window resize if open
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768 && mobileMenu.classList.contains('active')) {
+                closeMobileMenu();
+            }
+        });
+
+        // Handle escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+                closeMobileMenu();
+            }
+        });
+
+        // Process Order functionality
+        function processOrder() {
+            const form = document.querySelector('form');
+            const formData = new FormData(form);
+            
+            // Basic validation
+            const requiredFields = ['firstname', 'lastname', 'email', 'password', 'phone', 'address'];
+            let isValid = true;
+            
+            requiredFields.forEach(field => {
+                const input = document.querySelector(`[name="${field}"]`);
+                if (!input.value.trim()) {
+                    input.style.borderColor = 'red';
+                    isValid = false;
+                } else {
+                    input.style.borderColor = '#e0e0e0';
+                }
+            });
+            
+            if (isValid) {
+                showNotification('Order placed successfully! We\'ll contact you shortly.');
+                form.reset();
+            } else {
+                showNotification('Please fill in all required fields.', 'error');
+            }
+        }
+
+        // Notification system
+        function showNotification(message, type = 'success') {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            if (type === 'error') {
+                notification.style.background = 'linear-gradient(45deg, #f44336, #d32f2f)';
+            }
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 100);
+            
+            // Remove after 4 seconds
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    if (document.body.contains(notification)) {
+                        document.body.removeChild(notification);
+                    }
+                }, 300);
+            }, 4000);
+        }
+
+        // Form input animations
+        document.querySelectorAll('input, textarea').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.style.transform = 'translateY(-2px)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Add loading animation to button
+        function addLoadingToButton() {
+            const btn = document.querySelector('.btn1');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }, 2000);
+        }
+
+        // Enhanced form validation
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        function validatePhone(phone) {
+            const re = /^[\+]?[0-9\s\-\(\)]+$/;
+            return re.test(phone) && phone.replace(/\D/g, '').length >= 10;
+        }
+
+        // Real-time validation
+        document.getElementById('email').addEventListener('blur', function() {
+            if (this.value && !validateEmail(this.value)) {
+                this.style.borderColor = 'red';
+                showNotification('Please enter a valid email address.', 'error');
+            } else {
+                this.style.borderColor = '#e0e0e0';
+            }
+        });
+
+        document.getElementById('phone').addEventListener('blur', function() {
+            if (this.value && !validatePhone(this.value)) {
+                this.style.borderColor = 'red';
+                showNotification('Please enter a valid phone number.', 'error');
+            } else {
+                this.style.borderColor = '#e0e0e0';
+            }
+        });
+
+        // Auto-format phone number
+        document.getElementById('phone').addEventListener('input', function() {
+            let value = this.value.replace(/\D/g, '');
+            if (value.length >= 11) {
+                value = value.substring(0, 11);
+                this.value = value.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
+            }
+        });
+
+        // Smooth scroll for better UX
+        function smoothScrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Add scroll to top functionality
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                if (!document.querySelector('.scroll-top')) {
+                    const scrollBtn = document.createElement('button');
+                    scrollBtn.className = 'scroll-top';
+                    scrollBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
+                    scrollBtn.style.cssText = `
+                        position: fixed;
+                        bottom: 30px;
+                        right: 30px;
+                        width: 50px;
+                        height: 50px;
+                        background: orangered;
+                        color: white;
+                        border: none;
+                        border-radius: 50%;
+                        cursor: pointer;
+                        z-index: 1000;
+                        font-size: 18px;
+                        transition: all 0.3s ease;
+                        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+                    `;
+                    scrollBtn.addEventListener('click', smoothScrollToTop);
+                    scrollBtn.addEventListener('mouseenter', function() {
+                        this.style.transform = 'translateY(-3px)';
+                        this.style.boxShadow = '0 6px 20px rgba(0,0,0,0.3)';
+                    });
+                    scrollBtn.addEventListener('mouseleave', function() {
+                        this.style.transform = 'translateY(0)';
+                        this.style.boxShadow = '0 4px 15px rgba(0,0,0,0.2)';
+                    });
+                    document.body.appendChild(scrollBtn);
+                }
+            } else {
+                const scrollBtn = document.querySelector('.scroll-top');
+                if (scrollBtn) {
+                    scrollBtn.remove();
+                }
+            }
+        });
+
+        // Enhanced order processing with animation
+        function processOrder() {
+            const form = document.querySelector('form');
+            const formData = new FormData(form);
+            
+            // Basic validation
+            const requiredFields = ['firstname', 'lastname', 'email', 'password', 'phone', 'address'];
+            let isValid = true;
+            let firstInvalidField = null;
+            
+            requiredFields.forEach(field => {
+                const input = document.querySelector(`[name="${field}"]`);
+                if (!input.value.trim()) {
+                    input.style.borderColor = 'red';
+                    input.style.animation = 'shake 0.5s ease-in-out';
+                    if (!firstInvalidField) firstInvalidField = input;
+                    isValid = false;
+                    
+                    // Remove animation after it completes
+                    setTimeout(() => {
+                        input.style.animation = '';
+                    }, 500);
+                } else {
+                    input.style.borderColor = '#e0e0e0';
+                }
+            });
+            
+            // Additional email validation
+            const emailInput = document.querySelector('[name="email"]');
+            if (emailInput.value && !validateEmail(emailInput.value)) {
+                emailInput.style.borderColor = 'red';
+                isValid = false;
+                if (!firstInvalidField) firstInvalidField = emailInput;
+            }
+            
+            // Additional phone validation
+            const phoneInput = document.querySelector('[name="phone"]');
+            if (phoneInput.value && !validatePhone(phoneInput.value)) {
+                phoneInput.style.borderColor = 'red';
+                isValid = false;
+                if (!firstInvalidField) firstInvalidField = phoneInput;
+            }
+            
+            if (isValid) {
+                addLoadingToButton();
+                showNotification('Order placed successfully! We\'ll contact you shortly.');
+                
+                // Simulate order processing
+                setTimeout(() => {
+                    form.reset();
+                    showNotification('Thank you! Your order confirmation has been sent to your email.');
+                }, 2000);
+            } else {
+                showNotification('Please fill in all required fields correctly.', 'error');
+                if (firstInvalidField) {
+                    firstInvalidField.focus();
+                    firstInvalidField.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'center' 
+                    });
+                }
+            }
+        }
+
+        // Add shake animation to CSS
+        const shakeAnimation = document.createElement('style');
+        shakeAnimation.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+                20%, 40%, 60%, 80% { transform: translateX(5px); }
+            }
+        `;
+        document.head.appendChild(shakeAnimation);
+
+        // Progressive enhancement for better UX
+        if ('serviceWorker' in navigator) {
+            // Service worker registration for offline functionality (optional)
+            console.log('Service Worker support detected');
+        }
+
+        // Add intersection observer for animation on scroll
+        if ('IntersectionObserver' in window) {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Observe feature items for scroll animations
+            document.querySelectorAll('.feature-item').forEach(item => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(30px)';
+                item.style.transition = 'all 0.6s ease';
+                observer.observe(item);
+            });
+        }
+    </script>
+</body>
+</html>

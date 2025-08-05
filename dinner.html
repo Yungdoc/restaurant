@@ -1,0 +1,1092 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Our Special Menu</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            background-color: #f8f8f8;
+        }
+
+        .hambuger {
+            display: none;
+        }
+        html{
+            scroll-behavior: smooth;
+        }
+
+        .nav {
+            background-color: black;
+            margin-top: -10px;
+            margin-right: -10px;
+            margin-left: -10px;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0 50px;
+            cursor: pointer;
+        }
+
+        .nav h1 {
+            color: #fff;
+            margin-left: 35px;
+        }
+        .name-span{
+            color: orangered;
+            font-size: 13px;
+        }
+        .title-span {
+            color: orangered;
+        }
+
+        .logo {
+            color: red;
+        }
+
+        .navLink {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            font-size: 20px;
+        }
+
+        .navLink a:hover {
+            text-decoration: underline;
+            text-decoration-color: orangered;
+            text-decoration-thickness: 2px;
+            transition: 0.3s;
+            margin-top: 15px;
+        }
+
+        .navLink a, a {
+            text-decoration: none;
+            color: #fff;
+            margin: 0 10px;
+        }
+
+        .search-btn {
+            border-radius: 25px;
+            padding: 10px 25px;
+            border: 2px solid orangered;
+            background-color: orangered;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .search-btn:hover {
+            background-color: transparent;
+            color: orangered;
+        }
+
+ 
+        /* Hamburger Menu Styles */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 5px;
+            z-index: 1002;
+        }
+
+        .bar {
+            width: 30px;
+            height: 3px;
+            background-color: #fff;
+            margin: 3px 0;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+
+        .hamburger.active .bar:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active .bar:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active .bar:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 300px;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            transition: right 0.3s ease;
+            z-index: 1001;
+            padding-top: 80px;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu a {
+            display: block;
+            color: #fff;
+            text-decoration: none;
+            padding: 20px 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            font-size: 18px;
+        }
+
+        .mobile-menu a:hover {
+            background-color: orangered;
+            transform: translateX(10px);
+        }
+
+        .mobile-menu .reservations-btn {
+            margin: 20px 30px;
+            padding: 12px 25px;
+            background-color: orangered;
+            border: 2px solid orangered;
+            border-radius: 25px;
+            color: white;
+            text-align: center;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu .reservations-btn:hover {
+            background-color: transparent;
+            color: orangered;
+        }
+
+        /* Overlay for mobile menu */
+        .menu-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        .menu-overlay.active {
+            display: block;
+        }
+        /***special***/
+        .special {
+            text-align: center;
+            margin: 40px 0;
+            font-size: 2.5rem;
+            color: #333;
+        }
+
+        /***btns-container**/
+        .btns-container {
+            text-align: center;
+            justify-content: center;
+            justify-items: center;
+            margin-bottom: 50px;
+        }
+
+        .btn-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 0 4px;
+            gap: 15px;
+            margin: 10px 0;
+            cursor: pointer;
+            list-style: none;
+        }
+
+        .btn-fast {
+            border-width: 1.5px;
+            border-radius: 20px;
+            padding: 8px 45px;
+            border-style: solid;
+            border-color: orangered;
+            list-style: none;
+            background-color: orangered;
+            transition: all 0.3s ease;
+        }
+
+        .btn-fast a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .btn1 {
+            border-width: 1.5px;
+            border-radius: 20px;
+            padding: 8px 50px;
+            border-style: solid;
+            border-color: orangered;
+            list-style: none;
+            background-color: transparent;
+            transition: all 0.3s ease;
+        }
+
+        .btn1 a {
+            color: orangered;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .btn1:hover {
+            background-color: orangered;
+        }
+
+        .btn1:hover a {
+            color: #fff;
+        }
+
+        /* Menu Container */
+        .menu-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            gap: 60px;
+        }
+
+        .menu-container img {
+            width: 50%;
+            height: 600px;
+            border-radius: 20px;
+            object-fit: cover;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease;
+        }
+
+        .menu-container img:hover {
+            transform: translateY(-5px);
+        }
+
+        .sub-cont{
+        margin-bottom: 20px;
+    }
+    .number-cont {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 30px 0 15px 0;
+        }
+    .number-cont h2{
+        color: orangered;
+        font-size: 25px;
+    }
+    .number-cont p{
+        font-size: 20px;
+    }
+    .btn{
+        color: #fff;
+        background-color: orangered;
+        border-radius: 10px;
+        border: none;
+        padding: 8px 15px;
+    }
+     .btn:hover {
+            background-color: #ff4500;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 69, 0, 0.3);
+        }
+
+        /* Footer Styles */
+        .footer {
+            background: linear-gradient(135deg, #1a1a1a 0%, #000 100%);
+            color: white;
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-section h3 {
+            color: orangered;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: orangered;
+        }
+
+        .footer-logo h2 {
+            color: red;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .footer-logo .name-span {
+            color: orangered;
+            font-size: 13px;
+        }
+
+        .footer-logo .title-span {
+            color: orangered;
+        }
+
+        .footer-logo p {
+            color: #ccc;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: orangered;
+            color: white;
+            border-radius: 50%;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+
+        .social-links a:hover {
+            background-color: #ff4500;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 69, 0, 0.4);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-section ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-left: 0;
+        }
+
+        .footer-section ul li a:hover {
+            color: orangered;
+            padding-left: 10px;
+        }
+
+        .footer-section ul li a::before {
+            content: '→';
+            opacity: 0;
+            position: absolute;
+            left: -15px;
+            transition: all 0.3s ease;
+        }
+
+        .footer-section ul li a:hover::before {
+            opacity: 1;
+            left: -10px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .contact-item i {
+            color: orangered;
+            font-size: 1.2rem;
+            margin-top: 2px;
+            min-width: 20px;
+        }
+
+        .contact-item p {
+            color: #ccc;
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        .hours-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #333;
+        }
+
+        .hours-item span:first-child {
+            color: #ccc;
+            font-weight: 500;
+        }
+
+        .hours-item span:last-child {
+            color: orangered;
+            font-weight: bold;
+        }
+
+        .reservation-cta {
+            margin-top: 25px;
+        }
+
+        .footer-btn {
+            display: inline-block;
+            background-color: orangered;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: 2px solid orangered;
+        }
+
+        .footer-btn:hover {
+            background-color: transparent;
+            color: orangered;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 69, 0, 0.3);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #333;
+            padding: 25px 0;
+        }
+
+        .footer-bottom-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-bottom p {
+            color: #999;
+            margin: 0;
+        }
+
+        .footer-links {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: orangered;
+        }
+
+        .footer-links span {
+            color: #666;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .navLink,
+            .search {
+                display: none;
+            }
+
+            .nav-bar {
+                margin: 0 20px;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+ 
+            .logo {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 20px 0;
+                gap: 10px;
+            }
+
+            .active {
+                color: #fff;
+                margin: 0;
+                text-decoration: none;
+                font-size: 20px;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
+            .navlist {
+                color: #fff;
+                display: none;
+                box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.3);
+                z-index: 1001;
+                cursor: pointer;
+                background-color: rgba(0, 0, 0, 0.95);
+                padding: 20px 0;
+                border-radius: 10px;
+                backdrop-filter: blur(10px);
+            }
+
+            .navlist a {
+                color: #fff;
+                list-style: none;
+                margin: 0 20px;
+                text-decoration: none;
+                padding: 15px 20px;
+                display: block;
+                border-radius: 8px;
+                transition: all 0.3s ease;
+            }
+
+            .navlist a:hover {
+                color: #fff;
+                background-color: orangered;
+                transform: translateX(10px);
+            }
+
+            .activo {
+                background-color: orangered;
+                border-radius: 8px;
+            }
+
+            .show {
+                display: block;
+            }
+
+            .navLink {
+                display: none;
+            }
+
+            .search-btn {
+                display: none;
+            }
+
+
+            .btn-list {
+                gap: 10px;
+            }
+
+            .btn-fast, .btn1 {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+
+            .menu-container {
+                flex-direction: column;
+                gap: 30px;
+                padding: 20px;
+            }
+
+            .menu-container img {
+                width: 100%;
+                height: 300px;
+                order: 1;
+            }
+
+            .sub-cont {
+                order: 2;
+                padding: 0;
+            }
+
+            .number-cont {
+                margin: 25px 0 10px 0;
+            }
+
+            .number-cont h2 {
+                font-size: 1.4rem;
+            }
+
+            .sub-cont p {
+                margin-left: 45px;
+                font-size: 15px;
+            }
+
+            .btn {
+                margin-left: 45px;
+                padding: 12px 25px;
+                font-size: 15px;
+            }
+
+            /* Footer Mobile Styles */
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                padding: 40px 20px 30px;
+            }
+
+            .footer-section h3::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .footer-section:first-child {
+                text-align: center;
+            }
+
+            .footer-section:first-child h3::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+
+            .footer-bottom-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+
+            .footer-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-bar {
+                padding: 0 15px;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .special {
+                font-size: 1.8rem;
+                margin: 30px 15px 25px;
+            }
+
+            .btns-container {
+                padding: 0 15px;
+            }
+
+            .btn-list {
+                gap: 8px;
+            }
+
+            .btn-fast, .btn1 {
+                padding: 8px 15px;
+                font-size: 13px;
+            }
+
+            .menu-container {
+                padding: 15px;
+            }
+
+            .menu-container img {
+                height: 250px;
+                border-radius: 15px;
+            }
+
+            .number-cont {
+                margin: 20px 0 8px 0;
+            }
+
+            .numbered {
+                font-size: 1.3rem;
+                min-width: 35px;
+            }
+
+            .number-cont h2 {
+                font-size: 1.2rem;
+            }
+
+            .sub-cont p {
+                margin-left: 40px;
+                font-size: 14px;
+                margin-bottom: 20px;
+            }
+
+            .btn {
+                margin-left: 40px;
+                padding: 10px 20px;
+                font-size: 14px;
+                margin-top: 30px;
+            }
+        }
+
+        /* Animation for page load */
+        .menu-container {
+            animation: fadeInUp 0.8s ease forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+         /* Large Desktop Styles */
+        @media only screen and (min-width: 1200px) {
+            .nav-bar {
+                margin: 0 100px;
+            }
+
+            .menu-container {
+                margin: 10px 100px;
+            }
+
+            .hamburger,
+            .mobile-menu {
+                display: none;
+            }
+        }
+
+        /* Ensure desktop menu shows on larger screens */
+        @media only screen and (min-width: 769px) {
+            .navLink,
+            .search {
+                display: flex;
+            }
+        }
+
+        /* Notification Styles */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 25px;
+            z-index: 10000;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transform: translateX(300px);
+            transition: transform 0.3s ease;
+            font-weight: bold;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        /* Tablet Styles */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .menu-container {
+                gap: 40px;
+                padding: 30px 40px;
+            }
+
+            .menu-container img {
+                width: 45%;
+                height: 500px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="nav">
+        <div class="nav-bar">
+            <h1 class="logo">🍽️<span class="name-span">Miles</span>Restau<span class="title-span">rant</span></h1>
+            
+            <div class="navLink">
+                <a href="Home.html">Home</a>
+                <a href="menu.html">Menu</a>
+                <a href="Package.html">Package</a>
+                <a href="Gallery.html">Gallery</a>
+                <a href="Order.html">Order</a>
+                <a href="About.html">About</a>
+            </div>
+            
+            <div class="search">
+                <a href="reservation.html" class="search-btn">Reservation</a>
+            </div>
+            
+            <!-- Hamburger Menu -->
+            <div class="hamburger" id="hamburger">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="Home.html">Home</a>
+        <a href="menu.html">Menu</a>
+        <a href="Package.html">Package</a>
+        <a href="Gallery.html">Gallery</a>
+        <a href="Order.html">Order</a>
+        <a href="About.html">About</a>
+        <a href="reservation.html" class="reservations-btn">Reservation</a>
+    </div>
+
+
+    <h1 class="special">Our <span class="special-highlight">Special</span> Menu</h1>
+
+    <div class="btns-container">
+        <ul class="btn-list">
+            <li class="btn1"><a href="breakfast.html">Breakfast</a></li>
+            <li class="btn1"><a href="lunch.html">Lunch</a></li>
+            <li class="btn-fast"><a href="dinner.html">Dinner</a></li>
+            <li class="btn1"><a href="dessert.html">Dessert</a></li>
+        </ul>
+    </div>
+
+    <div class="menu-container">
+        <img src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=600" alt="Dinner Table">
+        <div class="sub-cont">
+            <div class="number-cont">
+                <p class="numbered">01.</p>
+                <h2>Steak Dinner</h2>
+            </div>
+            <p>Pair with a bold Cabernet Sauvignon or a rich Malbec. Perfect for juicy steaks with rich, robust flavors.</p>
+
+            <div class="number-cont">
+                <p class="numbered">02.</p>
+                <h2>Seafood Feast</h2>
+            </div>
+            <p>Enjoy with a crisp Sauvignon Blanc or a refreshing Pinot Grigio to enhance delicate flavors of the ocean's finest.</p>
+
+            <div class="number-cont">
+                <p class="numbered">03.</p>
+                <h2>Vegetarian Delight</h2>
+            </div>
+            <p>Best with a light Rosé or a chilled Riesling for a refreshing balance with our garden-fresh ingredients.</p>
+
+            <div class="number-cont">
+                <p class="numbered">04.</p>
+                <h2>Asian Cuisine</h2>
+            </div>
+            <p>Compliment with a sparkling Rosé, Gewürztraminer, or traditional sake for perfect harmony with authentic Asian spices.</p>
+
+            <button class="btn" onclick="viewMorePairings()">
+                <i class="fa fa-eye"></i> View More Pairings
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <h2>🍽️<span class="name-span">Miles</span>Restau<span class="title-span">rant</span></h2>
+                    <p>Experience culinary excellence in every bite. Where tradition meets innovation to create unforgettable dining moments.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="Home.html">Home</a></li>
+                    <li><a href="About.html">About Us</a></li>
+                    <li><a href="Menu.html">Our Menu</a></li>
+                    <li><a href="Package.html">Packages</a></li>
+                    <li><a href="Gallery.html">Gallery</a></li>
+                    <li><a href="Order.html">Order Online</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Contact Info</h3>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                        <p>123 Culinary Street</p>
+                        <p>Onitsha, Anambra State</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <p>+234 (0) 123 456 7890</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <p>info@milesrestaurant.com</p>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h3>Opening Hours</h3>
+                <div class="hours-item">
+                    <span>Monday - Thursday</span>
+                    <span>11:00 AM - 10:00 PM</span>
+                </div>
+                <div class="hours-item">
+                    <span>Friday - Saturday</span>
+                    <span>11:00 AM - 11:00 PM</span>
+                </div>
+                <div class="hours-item">
+                    <span>Sunday</span>
+                    <span>12:00 PM - 9:00 PM</span>
+                </div>
+                <div class="reservation-cta">
+                    <a href="reservations.html" class="footer-btn">Make Reservation</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="footer-bottom-content">
+                <p>&copy; 2024 Miles Restaurant. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#privacy">Privacy Policy</a>
+                    <span>|</span>
+                    <a href="#terms">Terms of Service</a>
+                    <span>|</span>
+                    <a href="#sitemap">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuOverlay = document.getElementById('menuOverlay');
+        const mobileMenuLinks = document.querySelectorAll('.mobile-menu a');
+
+        // Toggle mobile menu
+        function toggleMobileMenu() {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            menuOverlay.classList.toggle('active');
+            
+            // Prevent body scroll when menu is open
+            if (mobileMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Close mobile menu
+        function closeMobileMenu() {
+            hamburger.classList.remove('active');
+            mobileMenu.classList.remove('active');
+            menuOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Event listeners
+        hamburger.addEventListener('click', toggleMobileMenu);
+        menuOverlay.addEventListener('click', closeMobileMenu);
+
+        // Close menu when clicking on links
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
+        });
+
+        // Close menu on window resize if open
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768 && mobileMenu.classList.contains('active')) {
+                closeMobileMenu();
+            }
+        });
+
+        // Handle escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+                closeMobileMenu();
+            }
+        });
+
+        // View More Breakfast functionality
+        function viewMoreBreakfast() {
+            showNotification('Redirecting to full breakfast menu...');
+            // You can redirect to breakfast page
+            // setTimeout(() => window.location.href = 'breakfast-menu.html', 1000);
+        }
+
+        // Notification system
+        function showNotification(message) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 100);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    if (document.body.contains(notification)) {
+                        document.body.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
+        }
+    </script>
+
+
+    
+</body>
+</html>
