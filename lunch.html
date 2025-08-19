@@ -566,12 +566,15 @@
                 flex-wrap: wrap;
                 padding: 0 20px;
                 gap: 10px;
+                justify-content: center;
             }
 
             .btn-fast,
             .btn1 {
                 padding: 8px 25px;
                 font-size: 14px;
+                flex: 0 0 calc(50% - 5px); /* Two buttons per row with gap */
+                text-align: center;
             }
 
             .menu-container {
@@ -668,6 +671,13 @@
             .hamburger,
             .mobile-menu {
                 display: none;
+            }
+        }
+        @media only screen and (max-width:600px){
+            .footer-section {
+                text-align: center;
+                justify-content: center;
+                justify-items: center;
             }
         }
 

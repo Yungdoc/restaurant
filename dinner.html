@@ -98,8 +98,6 @@
             background-color: transparent;
             color: orangered;
         }
-
- 
         /* Hamburger Menu Styles */
         .hamburger {
             display: none;
@@ -162,7 +160,6 @@
             background-color: orangered;
             transform: translateX(10px);
         }
-
         .mobile-menu .reservations-btn {
             margin: 20px 30px;
             padding: 12px 25px;
@@ -210,7 +207,6 @@
             justify-items: center;
             margin-bottom: 50px;
         }
-
         .btn-list {
             display: flex;
             flex-wrap: wrap;
@@ -238,7 +234,6 @@
             text-decoration: none;
             font-weight: bold;
         }
-
         .btn1 {
             border-width: 1.5px;
             border-radius: 20px;
@@ -612,12 +607,18 @@
 
 
             .btn-list {
+                flex-wrap: wrap;
+                padding: 0 20px;
                 gap: 10px;
+                justify-content: center;
             }
 
-            .btn-fast, .btn1 {
-                padding: 10px 20px;
+            .btn-fast,
+            .btn1 {
+                padding: 8px 25px;
                 font-size: 14px;
+                flex: 0 0 calc(50% - 5px); /* Two buttons per row with gap */
+                text-align: center;
             }
 
             .menu-container {
@@ -690,6 +691,13 @@
             .footer-links {
                 flex-wrap: wrap;
                 justify-content: center;
+            }
+        }
+        @media only screen and (max-width:600px){
+            .footer-section {
+                text-align: center;
+                justify-content: center;
+                justify-items: center;
             }
         }
 
@@ -816,6 +824,7 @@
         .notification.show {
             transform: translateX(0);
         }
+        
 
         /* Tablet Styles */
         @media (min-width: 769px) and (max-width: 1024px) {
@@ -977,7 +986,7 @@
                     <span>12:00 PM - 9:00 PM</span>
                 </div>
                 <div class="reservation-cta">
-                    <a href="reservations.html" class="footer-btn">Make Reservation</a>
+                    <a href="Order.html" class="footer-btn">Make Reservation</a>
                 </div>
             </div>
         </div>

@@ -26,6 +26,9 @@
         /* Navigation Styles */
         .nav {
             background-color: black;
+            margin-top: -10px;
+            margin-right: -10px;
+            margin-left: -10px;
             padding: 15px 0;
             position: sticky;
             top: 0;
@@ -37,18 +40,16 @@
             justify-content: space-between;
             align-items: center;
             margin: 0 50px;
+            cursor: pointer;
         }
 
         .nav h1 {
             color: #fff;
-            font-size: 28px;
         }
-
-        .name-span {
+        .name-span{
             color: orangered;
             font-size: 13px;
         }
-
         .title-span {
             color: orangered;
         }
@@ -68,16 +69,15 @@
             text-decoration: underline;
             text-decoration-color: orangered;
             text-decoration-thickness: 2px;
-            color: orangered;
             transition: 0.3s;
+            
         }
 
-        .navLink a {
+        .navLink a, a {
             text-decoration: none;
             color: #fff;
-            transition: all 0.3s ease;
+            margin: 0 10px;
         }
-
         .search-btn {
             border-radius: 25px;
             padding: 10px 25px;
@@ -89,11 +89,6 @@
             transition: all 0.3s ease;
             text-decoration: none;
             display: inline-block;
-        }
-        .search-btn a{
-            color: #fff;
-            font-size: 17px;
-            text-decoration: none;
         }
 
         .search-btn:hover {
@@ -320,6 +315,25 @@
             background-color: #ff4500;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(255, 69, 0, 0.3);
+        }
+        /* Notification Styles */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 25px;
+            z-index: 10000;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transform: translateX(300px);
+            transition: transform 0.3s ease;
+            font-weight: bold;
+        }
+
+        .notification.show {
+            transform: translateX(0);
         }
 
         /* Footer Styles */
@@ -566,12 +580,15 @@
                 flex-wrap: wrap;
                 padding: 0 20px;
                 gap: 10px;
+                justify-content: center;
             }
 
             .btn-fast,
             .btn1 {
                 padding: 8px 25px;
                 font-size: 14px;
+                flex: 0 0 calc(50% - 5px); /* Two buttons per row with gap */
+                text-align: center;
             }
 
             .menu-container {
@@ -664,6 +681,27 @@
                 display: none;
             }
         }
+        @media only screen and (max-width:600px){
+            .footer-section {
+                text-align: center;
+                justify-content: center;
+                justify-items: center;
+            }
+            
+            .btn-list {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                align-items: center;
+                gap: 0.75rem;
+            }
+            
+            .btn-fast,
+            .btn1 {
+                flex: 0 0 calc(50% - 6px); /* Two buttons per row */
+                min-width: 120px;
+            }
+        }
 
         /* Large Desktop Styles */
         @media only screen and (min-width: 1200px) {
@@ -687,26 +725,6 @@
             .search {
                 display: flex;
             }
-        }
-
-        /* Notification Styles */
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: linear-gradient(45deg, #4CAF50, #45a049);
-            color: white;
-            padding: 15px 20px;
-            border-radius: 25px;
-            z-index: 10000;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            transform: translateX(300px);
-            transition: transform 0.3s ease;
-            font-weight: bold;
-        }
-
-        .notification.show {
-            transform: translateX(0);
         }
     </style>
 </head>
@@ -858,7 +876,7 @@
                     <span>12:00 PM - 9:00 PM</span>
                 </div>
                 <div class="reservation-cta">
-                    <a href="reservation.html" class="footer-btn">Make Reservation</a>
+                    <a href="Order.html" class="footer-btn">Make Reservation</a>
                 </div>
             </div>
         </div>
