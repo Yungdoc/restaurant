@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <title>Our Special Menu</title>
     <style>
@@ -47,17 +48,21 @@
 
         .nav h1 {
             color: #fff;
-        }
-        .name-span{
-            color: orangered;
-            font-size: 13px;
-        }
-        .title-span {
-            color: orangered;
+            font-size: 40px;
+            display: flex;
+            align-items: center;
+            height: 90px;
+            margin-right: 0;
+            margin-left: 0;
         }
 
-        .logo {
-            color: red;
+        .nav h1 img {
+            height: 200px;
+            width: auto;
+            object-fit: contain;
+            margin: 0 15px 0 0;
+            padding: 0;
+            display: block;
         }
 
         .navLink {
@@ -318,7 +323,7 @@
             box-shadow: 0 5px 15px rgba(255, 69, 0, 0.3);
         }
 
-        /* Footer Styles */
+        /* Footer Styles 
         .footer {
             background: linear-gradient(135deg, #1a1a1a 0%, #000 100%);
             color: white;
@@ -352,18 +357,22 @@
         }
 
         .footer-logo h2 {
-            color: red;
-            font-size: 1.8rem;
-            margin-bottom: 15px;
+            color: #fff;
+            font-size: 40px;
+            display: flex;
+            align-items: center;
+            height: 90px;
+            margin-right: 0;
+            margin-left: 0;
         }
 
-        .footer-logo .name-span {
-            color: orangered;
-            font-size: 13px;
-        }
-
-        .footer-logo .title-span {
-            color: orangered;
+        .footer-logo h2 img {
+            height: 150px;
+            width: auto;
+            object-fit: contain;
+            margin: 0 15px 0 0;
+            padding: 0;
+            display: block;
         }
 
         .footer-logo p {
@@ -378,21 +387,22 @@
         }
 
         .social-links a {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 69, 0, 0.1);
+            border: 2px solid orangered;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: orangered;
-            color: white;
-            border-radius: 50%;
-            text-decoration: none;
+            color: orangered;
             transition: all 0.3s ease;
-            font-size: 1.1rem;
+            text-decoration: none;
         }
 
         .social-links a:hover {
-            background-color: #ff4500;
+            background: orangered;
+            color: white;
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(255, 69, 0, 0.4);
         }
@@ -533,6 +543,7 @@
         .footer-links span {
             color: #666;
         }
+            **/
 
         /* Responsive Design */
         @media (max-width: 768px) {
@@ -663,7 +674,7 @@
                 font-size: 15px;
             }
 
-            /* Footer Mobile Styles */
+            /* Footer Mobile Styles 
             .footer-content {
                 grid-template-columns: 1fr;
                 gap: 40px;
@@ -683,6 +694,17 @@
                 left: 50%;
                 transform: translateX(-50%);
             }
+            .footer-logo h2{
+                justify-content: center;   
+            }
+            .footer-logo h2 img{
+                height: 200px;
+                width: auto;
+                object-fit: contain;
+                margin: 0 15px 0 0;
+                padding: 0;
+                display: block;
+            }
 
             .social-links {
                 justify-content: center;
@@ -698,13 +720,16 @@
                 flex-wrap: wrap;
                 justify-content: center;
             }
+                */
         }
         @media only screen and (max-width:600px){
+           /**
             .footer-section {
                 text-align: center;
                 justify-content: center;
                 justify-items: center;
             }
+                **/
         }
 
         @media (max-width: 480px) {
@@ -816,7 +841,7 @@
 <body>
     <header class="nav">
         <div class="nav-bar">
-            <h1 class="logo">🍽️<span class="name-span">Miles</span>Restau<span class="title-span">rant</span></h1>
+           <h1><a href="home.html"><img src="logoiim.png" alt="Restaurant Logo"></a></h1>            
             
             <div class="navLink">
                 <a href="Home.html">Home</a>
@@ -857,7 +882,7 @@
 
     <div class="btns-container">
         <ul class="btn-list">
-            <li class="btn1"><a href="breakfast.html">Breakfast</a></li>
+            <li class="btn1"><a href="menu.html">Breakfast</a></li>
             <li class="btn1"><a href="lunch.html">Lunch</a></li>
             <li class="btn1"><a href="dinner.html">Dinner</a></li>
             <li class="btn-fast"><a href="dessert.html">Dessert</a></li>
@@ -902,7 +927,7 @@
         <div class="footer-content">
             <div class="footer-section">
                 <div class="footer-logo">
-                    <h2>🍽️<span class="name-span">Miles</span>Restau<span class="title-span">rant</span></h2>
+                    <h2><a href="home.html"><img src="logoiim.png" alt="Restaurant Logo"></a></h2>
                     <p>Experience culinary excellence in every bite. Where tradition meets innovation to create unforgettable dining moments.</p>
                     <div class="social-links">
                         <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
