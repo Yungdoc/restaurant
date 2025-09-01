@@ -4,9 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <title>Restaurant</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: black;
+            font-family: Arial, sans-serif;
+        }
+
         /* Top container with full screen slider */
         .top-container {
             position: relative;
@@ -42,7 +54,7 @@
 
         .sub-top-cont h1 {
             color: #fff;
-            font-size: 0.5rem;
+            font-size: 4rem;
             line-height: 1.2;
             margin-bottom: 10px;
             font-weight: bold;
@@ -175,6 +187,7 @@
             cursor: pointer;
             transition: all 0.3s ease;
             border: 2px solid transparent;
+            display: none;
         }
 
         .indicator.active {
@@ -183,12 +196,8 @@
             border-color: white;
             box-shadow: 0 0 20px rgba(255, 69, 0, 0.8);
         }
-        .indicator{
-            display: none;
-        }
-
         @media only screen and (max-width: 768px) {
-            
+
             .top-container {
                 height: 100vh;
                 margin: 0;
@@ -235,9 +244,9 @@
                 height: 12px;
             }
         }
+
         /* Tablet Styles */
         @media only screen and (min-width: 769px) and (max-width: 1024px) {
-            
 
             .top-container {
                 height: 100vh;
@@ -253,13 +262,10 @@
             .sub-top-cont h1 {
                 font-size: 3.5rem;
             }
-
-            
         }
 
         /* Large Desktop Styles */
         @media only screen and (min-width: 1200px) {
-            
 
             .top-container {
                 height: 100vh;
@@ -309,7 +315,11 @@
         <a href="Order.html">Order</a>
         <a href="About.html">About</a>
         <a href="Order.html" class="reservations-btn">Reservations</a>
-    </div>
+            <div class="close-x" id="closeX">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
     </div>
 
     <!-- Top container with image slider -->
@@ -327,10 +337,10 @@
         <!-- Image Slider -->
         <div class="image-slider">
             <div class="slider-wrapper">
-                <img src="restaupic.webp" alt="Delicious Restaurant Food">
-                <img src="restaufood.webp" alt="Gourmet Pizza">
-                <img src="bgdishpic.jpeg" alt="Fine Dining Dish">
-                <img src="restaupizz.webp" alt="Grilled Steak">
+                <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=800&h=600&fit=crop" alt="Delicious Restaurant Food">
+                <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=800&h=600&fit=crop" alt="Gourmet Pizza">
+                <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&h=600&fit=crop" alt="Fine Dining Dish">
+                <img src="https://images.unsplash.com/photo-1558030006-450675393462?w=800&h=600&fit=crop" alt="Grilled Steak">
             </div>
         </div>
     </div>
@@ -352,7 +362,10 @@
             </div>
 
             <div class="footer-section">
-                <h3>Quick Links</h3>
+                <h3 onclick="toggleFooterDropdown(this)">
+                    Quick Links
+                    <i class="fas fa-chevron-down footer-dropdown-arrow"></i>
+                </h3>
                 <ul>
                     <li><a href="Home.html">Home</a></li>
                     <li><a href="About.html">About Us</a></li>
@@ -364,25 +377,18 @@
             </div>
 
             <div class="footer-section">
-                <h3>Contact Info</h3>
-                <div class="contact-item">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <div>
-                        <p>123 Culinary Street</p>
-                        <p>Onitsha, Anambra State</p>
-                    </div>
-                </div>
-                <div class="contact-item">
-                    <i class="fas fa-phone"></i>
-                    <p>+234 (0) 814 173 4855</p>
-                </div>
-                <div class="contact-item">
-                    <i class="fas fa-envelope"></i>
-                    <p>info@milesrestaurant.com</p>
-                </div>
+                <h3 onclick="toggleFooterDropdown(this)">
+                    Contact Info
+                    <i class="fas fa-chevron-down footer-dropdown-arrow"></i>
+                </h3>
+                <ul>
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Culinary Street, Onitsha, Anambra State</li>
+                    <li><i class="fas fa-phone"></i> +234 (0) 814 173 4855</li>
+                    <li><i class="fas fa-envelope"></i> info@milesrestaurant.com</li>
+                </ul>
             </div>
 
-            <div class="footer-section">
+           <div class="footer-section">
                 <h3>Opening Hours</h3>
                 <div class="hours-item">
                     <span>Monday - Thursday</span>
@@ -416,82 +422,6 @@
         </div>
     </footer>
 
-    <script>
-        const hamburger = document.getElementById('hamburger');
-        const mobileMenu = document.getElementById('mobileMenu');
-        const menuOverlay = document.getElementById('menuOverlay');
-        const mobileMenuLinks = document.querySelectorAll('.mobile-menu a');
-
-        // Toggle mobile menu
-        function toggleMobileMenu() {
-            hamburger.classList.toggle('active');
-            mobileMenu.classList.toggle('active');
-            menuOverlay.classList.toggle('active');
-            
-            // Prevent body scroll when menu is open
-            if (mobileMenu.classList.contains('active')) {
-                document.body.style.overflow = 'hidden';
-            } else {
-                document.body.style.overflow = 'auto';
-            }
-        }
-
-        // Close mobile menu
-        function closeMobileMenu() {
-            hamburger.classList.remove('active');
-            mobileMenu.classList.remove('active');
-            menuOverlay.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-
-        // Event listeners
-        hamburger.addEventListener('click', toggleMobileMenu);
-        menuOverlay.addEventListener('click', closeMobileMenu);
-
-        // Close menu when clicking on links
-        mobileMenuLinks.forEach(link => {
-            link.addEventListener('click', closeMobileMenu);
-        });
-
-        // Close menu on window resize if open
-        window.addEventListener('resize', () => {
-            if (window.innerWidth > 768 && mobileMenu.classList.contains('active')) {
-                closeMobileMenu();
-            }
-        });
-
-        // Handle escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
-                closeMobileMenu();
-            }
-        });
-
-        // Slider functionality
-        const indicators = document.querySelectorAll('.indicator');
-        let currentSlide = 0;
-
-        // Update active indicator
-        function updateIndicators() {
-            indicators.forEach((indicator, index) => {
-                indicator.classList.toggle('active', index === currentSlide);
-            });
-        }
-
-        // Auto-update indicators based on animation
-        setInterval(() => {
-            currentSlide = (currentSlide + 1) % 4;
-            updateIndicators();
-        }, 4000); // Change every 4 seconds to match animation timing
-
-        // Optional: Click functionality for indicators
-        indicators.forEach((indicator, index) => {
-            indicator.addEventListener('click', () => {
-                currentSlide = index;
-                updateIndicators();
-                // You could also modify the animation here if you want manual control
-            });
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>

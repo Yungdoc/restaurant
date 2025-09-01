@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <title>Miles Restaurant - Make An Order</title>
 
@@ -526,6 +527,10 @@
         <a href="Order.html">Order</a>
          <a href="About.html">About</a>
         <a href="Order.html" class="reservations-btn">Reservation</a>
+        <div class="close-x" id="closeX">
+            <span></span>
+            <span></span>
+        </div>
     </div>
 
     <main>
@@ -580,12 +585,12 @@
         </section>
     </main>
 
-    <!-- Footer Section -->
+     <!-- Footer Section -->
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-section">
                 <div class="footer-logo">
-           <h2><a href="home.html"><img src="logoiim.png" alt="Restaurant Logo"></a></h2>            
+                    <h2><a href="home.html"><img src="logoiim.png" alt="Restaurant Logo"></a></h2>
                     <p>Experience culinary excellence in every bite. Where tradition meets innovation to create unforgettable dining moments.</p>
                     <div class="social-links">
                         <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
@@ -597,37 +602,33 @@
             </div>
 
             <div class="footer-section">
-                <h3>Quick Links</h3>
+                <h3 onclick="toggleFooterDropdown(this)">
+                    Quick Links
+                    <i class="fas fa-chevron-down footer-dropdown-arrow"></i>
+                </h3>
                 <ul>
                     <li><a href="Home.html">Home</a></li>
+                    <li><a href="About.html">About Us</a></li>
                     <li><a href="Menu.html">Our Menu</a></li>
                     <li><a href="Package.html">Packages</a></li>
                     <li><a href="Gallery.html">Gallery</a></li>
                     <li><a href="Order.html">Order Online</a></li>
-                    <li><a href="About.html">About Us</a></li>
                 </ul>
             </div>
 
             <div class="footer-section">
-                <h3>Contact Info</h3>
-                <div class="contact-item">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <div>
-                        <p>123 Culinary Street</p>
-                        <p>Onitsha, Anambra State</p>
-                    </div>
-                </div>
-                <div class="contact-item">
-                    <i class="fas fa-phone"></i>
-                    <p>+234 (0) 123 456 7890</p>
-                </div>
-                <div class="contact-item">
-                    <i class="fas fa-envelope"></i>
-                    <p>info@milesrestaurant.com</p>
-                </div>
+                <h3 onclick="toggleFooterDropdown(this)">
+                    Contact Info
+                    <i class="fas fa-chevron-down footer-dropdown-arrow"></i>
+                </h3>
+                <ul>
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Culinary Street, Onitsha, Anambra State</li>
+                    <li><i class="fas fa-phone"></i> +234 (0) 814 173 4855</li>
+                    <li><i class="fas fa-envelope"></i> info@milesrestaurant.com</li>
+                </ul>
             </div>
 
-            <div class="footer-section">
+           <div class="footer-section">
                 <h3>Opening Hours</h3>
                 <div class="hours-item">
                     <span>Monday - Thursday</span>
@@ -660,6 +661,8 @@
             </div>
         </div>
     </footer>
+
+    <script src="script.js"></script>
 
     <script>
         const hamburger = document.getElementById('hamburger');

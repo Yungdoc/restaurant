@@ -1,14 +1,9 @@
-* {
+
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
-        body {
-            background-color: black;
-            font-family: Arial, sans-serif;
-        }
-
         html {
             scroll-behavior: smooth;
         }
@@ -184,6 +179,97 @@
 
         .menu-overlay.active {
             display: block;
+        }
+
+        /* X (close) icon for mobile menu */
+        .close-x {
+            display: none;
+            position: absolute;
+            top: 18px;
+            right: 25px;
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .close-x span {
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 4px;
+            background: orangered;
+            border-radius: 2px;
+            top: 14px;
+            left: 0;
+            transition: 0.3s;
+        }
+        .close-x span:first-child {
+            transform: rotate(45deg);
+        }
+        .close-x span:last-child {
+            transform: rotate(-45deg);
+}
+
+         /***btns-container**/
+        .btns-container {
+            text-align: center;
+            justify-content: center;
+            justify-items: center;
+            margin-bottom: 50px;
+        }
+
+        .btn-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 0 4px;
+            gap: 15px;
+            margin: 10px 0;
+            cursor: pointer;
+            list-style: none;
+        }
+
+        .btn-fast {
+            border-width: 1.5px;
+            border-radius: 20px;
+            padding: 8px 45px;
+            border-style: solid;
+            border-color: orangered;
+            list-style: none;
+            background-color: orangered;
+            transition: all 0.3s ease;
+        }
+
+        .btn-fast a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .btn1 {
+            border-width: 1.5px;
+            border-radius: 20px;
+            padding: 8px 50px;
+            border-style: solid;
+            border-color: orangered;
+            list-style: none;
+            background-color: transparent;
+            transition: all 0.3s ease;
+        }
+
+        .btn1 a {
+            color: orangered;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .btn1:hover {
+            background-color: orangered;
+        }
+
+        .btn1:hover a {
+            color: #fff;
         }
 
          /* Footer Styles */
@@ -406,6 +492,19 @@
         .footer-links span {
             color: #666;
         }
+
+        /* Footer dropdown arrow styles - only visible on mobile */
+        .footer-dropdown-arrow {
+            display: none;
+            transition: transform 0.3s ease;
+            font-size: 1rem;
+            margin-left: auto;
+        }
+
+        .footer-dropdown-arrow.active {
+            transform: rotate(180deg);
+        }
+
         @media only screen and (max-width: 768px) {
             .hamburger {
                 display: flex;
@@ -423,8 +522,27 @@
             .mobile-menu {
                 display: block;
             }
-
+            /** close-xbar **/
+            .close-x {
+                display: block;
+            }
             
+            /** btns **/
+             .btn-list {
+                flex-wrap: wrap;
+                padding: 0 20px;
+                gap: 10px;
+                justify-content: center;
+            }
+
+            .btn-fast,
+            .btn1 {
+                padding: 8px 25px;
+                font-size: 14px;
+                flex: 0 0 calc(50% - 5px); /* Two buttons per row with gap */
+                text-align: center;
+            }
+
 
              /* Footer Mobile Styles */
             .footer-content {
@@ -432,9 +550,11 @@
                 gap: 40px;
                 padding: 40px 20px 30px;
             }
+            
             .footer-logo h2{
                 justify-content: center;   
             }
+            
             .footer-logo h2 img{
                 height: 200px;
                 width: auto;
@@ -468,16 +588,40 @@
                 gap: 15px;
             }
 
-            .footer-links {
-                flex-wrap: wrap;
-                justify-content: center;
+            /* Dropdown functionality for mobile */
+            .footer-dropdown-arrow {
+                display: block;
             }
-        }
-        @media only screen and (max-width:600px){
+            
+            .footer-section h3 {
+                cursor: pointer;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 10px;
+                transition: color 0.3s ease;
+            }
+            
+            .footer-section h3:hover {
+                color: #ff8c69;
+            }
+            
+            .footer-section ul {
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease, opacity 0.3s ease;
+                opacity: 0;
+                margin-top: 0;
+            }
+            
+            .footer-section ul.show {
+                max-height: 300px;
+                opacity: 1;
+                margin-top: 1rem;
+            }
+
             .footer-section {
                 text-align: center;
-                justify-content: center;
-                justify-items: center;
             }
         }
 
@@ -496,6 +640,7 @@
             .mobile-menu {
                 display: none;
             }
+
         }
 
         /* Large Desktop Styles */
