@@ -19,74 +19,6 @@
             line-height: 1.6;
             background-color: #f8f8f8;
         }
-
-        /* Page Content Styles */
-        .special {
-            text-align: center;
-            margin: 40px 0;
-            font-size: 2.5rem;
-            color: #333;
-        }
-
-        .btns-container {
-            text-align: center;
-            justify-content: center;
-            margin-bottom: 50px;
-        }
-
-        .btn-list {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            padding: 0 4px;
-            gap: 15px;
-            margin: 10px 0;
-            cursor: pointer;
-            list-style: none;
-        }
-
-        .btn-fast {
-            border-width: 1.5px;
-            border-radius: 20px;
-            padding: 8px 45px;
-            border-style: solid;
-            border-color: orangered;
-            list-style: none;
-            background-color: orangered;
-            transition: all 0.3s ease;
-        }
-
-        .btn-fast a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .btn1 {
-            border-width: 1.5px;
-            border-radius: 20px;
-            padding: 8px 50px;
-            border-style: solid;
-            border-color: orangered;
-            list-style: none;
-            background-color: transparent;
-            transition: all 0.3s ease;
-        }
-
-        .btn1 a {
-            color: orangered;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .btn1:hover {
-            background-color: orangered;
-        }
-
-        .btn1:hover a {
-            color: #fff;
-        }
-
         .menu-container {
             display: flex;
             justify-content: space-between;
@@ -170,26 +102,6 @@
                 display: block;
             }
 
-            .special {
-                font-size: 2rem;
-                margin: 30px 20px;
-            }
-
-            .btn-list {
-                flex-wrap: wrap;
-                padding: 0 20px;
-                gap: 10px;
-                justify-content: center;
-            }
-
-            .btn-fast,
-            .btn1 {
-                padding: 8px 25px;
-                font-size: 14px;
-                flex: 0 0 calc(50% - 5px); /* Two buttons per row with gap */
-                text-align: center;
-            }
-
             .menu-container {
                 display: block;
                 margin: 20px;
@@ -230,21 +142,6 @@
 
             .menu-container img {
                 width: 45%;
-            }
-        }
-        @media only screen and (max-width:600px){    
-            .btn-list {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-                align-items: center;
-                gap: 0.75rem;
-            }
-            
-            .btn-fast,
-            .btn1 {
-                flex: 0 0 calc(50% - 6px); /* Two buttons per row */
-                min-width: 120px;
             }
         }
 
@@ -295,6 +192,10 @@
         <a href="Order.html">Order</a>
         <a href="About.html">About</a>
         <a href="Order.html" class="reservations-btn">Reservation</a>
+        <div class="close-x" id="closeX">
+            <span></span>
+            <span></span>
+        </div>
     </div>
 
     <main>

@@ -211,6 +211,13 @@
             transform: rotate(-45deg);
 }
 
+          /***special***/
+        .special {
+                text-align: center;
+                margin: 40px 0;
+                font-size: 2.5rem;
+                color: #333;
+            }
          /***btns-container**/
         .btns-container {
             text-align: center;
@@ -526,6 +533,10 @@
             .close-x {
                 display: block;
             }
+            .special {
+                font-size: 1.8rem;
+                margin: 30px 15px 25px;
+            }
             
             /** btns **/
              .btn-list {
@@ -622,6 +633,13 @@
 
             .footer-section {
                 text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+                .special {
+                font-size: 1.8rem;
+                margin: 30px 15px 25px;
             }
         }
 
