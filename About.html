@@ -399,19 +399,19 @@
     <section class="stats-section">
         <div class="stats-container">
             <div class="stat-item">
-                <h3>8+</h3>
+                <h3 class="counter" data-target="8">0</h3>
                 <p>Years of Excellence</p>
             </div>
             <div class="stat-item">
-                <h3>50K+</h3>
+                <h3 class="counter" data-target="50000">0</h3>
                 <p>Happy Customers</p>
             </div>
             <div class="stat-item">
-                <h3>200+</h3>
+                <h3 class="counter" data-target="200">0</h3>
                 <p>Signature Dishes</p>
             </div>
             <div class="stat-item">
-                <h3>15+</h3>
+                <h3 class="counter" data-target="15">0</h3>
                 <p>Awards Won</p>
             </div>
         </div>
@@ -546,6 +546,27 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+    // Animated counter for stats-section
+    document.addEventListener('DOMContentLoaded', function() {
+        const counters = document.querySelectorAll('.counter');
+        counters.forEach(counter => {
+            counter.innerText = '0';
+            const updateCounter = () => {
+                const target = +counter.getAttribute('data-target');
+                const current = +counter.innerText.replace(/\D/g, '');
+                const increment = target > 1000 ? Math.ceil(target / 200) : 1;
+                if (current < target) {
+                    counter.innerText = target >= 1000 ? `${current + increment}+` : `${current + increment}+`;
+                    setTimeout(updateCounter, 20);
+                } else {
+                    counter.innerText = target >= 1000 ? `${target.toLocaleString()}+` : `${target}+`;
+                }
+            };
+            updateCounter();
+        });
+    });
+    </script>
 </body>
 
 <script>
