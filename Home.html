@@ -22,10 +22,8 @@
         /* Top container with full screen slider */
         .top-container {
             position: relative;
-            width: 100vw;
-            min-height: 80vh;
+           
             margin: 0;
-            margin-left: calc(-50vw + 50%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -36,7 +34,7 @@
             position: relative;
             z-index: 10;
             text-align: center;
-            max-width: 700px;
+            max-width: 800px;
             padding: 0 20px;
             border-radius: 20px;
             padding: 20px;
@@ -54,8 +52,8 @@
 
         .sub-top-cont h1 {
             color: #fff;
-            font-size: 4rem;
-            line-height: 1.2;
+            font-size: 0.5rem;
+            line-height: 1;
             margin-bottom: 10px;
             font-weight: bold;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
@@ -126,7 +124,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
+            height: 80%;
             z-index: 1;
             pointer-events: none;
         }
@@ -168,38 +166,10 @@
             z-index: 2;
         }
 
-        /* Slide indicators */
-        .slider-indicators {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 15px;
-            z-index: 20;
-        }
-
-        .indicator {
-            width: 15px;
-            height: 15px;
-            border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.6);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-            display: none;
-        }
-
-        .indicator.active {
-            background-color: orangered;
-            transform: scale(1.3);
-            border-color: white;
-            box-shadow: 0 0 20px rgba(255, 69, 0, 0.8);
-        }
         @media only screen and (max-width: 768px) {
 
             .top-container {
-                height: 100vh;
+                height: 80vh;
                 margin: 0;
                 margin-left: calc(-50vw + 50%);
             }
@@ -229,7 +199,7 @@
             }
 
             .btn1, .btn2 {
-                width: 200px;
+                width: 150px;
                 display: block;
                 text-align: center;
             }
@@ -337,10 +307,10 @@
         <!-- Image Slider -->
         <div class="image-slider">
             <div class="slider-wrapper">
-                <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=800&h=600&fit=crop" alt="Delicious Restaurant Food">
-                <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=800&h=600&fit=crop" alt="Gourmet Pizza">
-                <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&h=600&fit=crop" alt="Fine Dining Dish">
-                <img src="https://images.unsplash.com/photo-1558030006-450675393462?w=800&h=600&fit=crop" alt="Grilled Steak">
+                <img src="restaufood.webp" alt="Delicious Restaurant Food">
+                <img src="restaupic.webp" alt="food">
+                <img src="restaupizz.webp" alt="Fine Dining Dish">
+                <img src="roastedbedd.jpg" alt="Grilled Steak">
             </div>
         </div>
     </div>
