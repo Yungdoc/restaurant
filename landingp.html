@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant - Fine Dining Experience</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background-color: #f8f6f1;
+            color: #2c2c2c;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #7d8b3a;
+        }
+
+        .logo::before {
+            content: "🍃";
+            margin-right: 8px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #2c2c2c;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: #7d8b3a;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 50%;
+            background-color: #7d8b3a;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Main Content */
+        main {
+            margin-top: 80px;
+            padding: 40px 0;
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            min-height: 70vh;
+        }
+
+        .hero-content {
+            padding: 40px;
+        }
+
+        .food-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .food-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            aspect-ratio: 1;
+            background: #e8e5d9;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .food-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+
+        .food-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, #7d8b3a20, #8b7d3a20);
+            z-index: 1;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: bold;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: #2c2c2c;
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            color: #7d8b3a;
+            margin-bottom: 25px;
+            font-style: italic;
+        }
+
+        .hero-description {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #666;
+            margin-bottom: 35px;
+            max-width: 500px;
+        }
+
+        .cta-button {
+            background: #7d8b3a;
+            color: white;
+            padding: 15px 35px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cta-button:hover {
+            background: #6a7532;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(125, 139, 58, 0.3);
+        }
+
+        .hero-image {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .main-dish {
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2c2c2c 0%, #4a4a4a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dish-content {
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            background: radial-gradient(circle at center, #8b7d3a 0%, #7d8b3a  50%, #6a7532 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .floating-element {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            animation: float 3s ease-in-out infinite;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .floating-element:nth-child(1) {
+            top: 10%;
+            right: 20%;
+            animation-delay: 0s;
+        }
+
+        .floating-element:nth-child(2) {
+            bottom: 15%;
+            left: 10%;
+            animation-delay: 1s;
+        }
+
+        .floating-element:nth-child(3) {
+            top: 50%;
+            right: -10%;
+            animation-delay: 2s;
+        }
+
+        .social-links {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #7d8b3a;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: #7d8b3a;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .decorative-leaf {
+            position: absolute;
+            color: #7d8b3a;
+            font-size: 2rem;
+            opacity: 0.6;
+            animation: sway 4s ease-in-out infinite;
+        }
+
+        .leaf-1 {
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .leaf-2 {
+            bottom: 30%;
+            right: 15%;
+            animation-delay: 2s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+
+        @keyframes sway {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(10deg); }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .food-gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .main-dish {
+                width: 300px;
+                height: 300px;
+            }
+            
+            .dish-content {
+                width: 250px;
+                height: 250px;
+            }
+            
+            nav ul {
+                gap: 15px;
+            }
+            
+            nav a {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">Restaurant</div>
+                <nav>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#menu">Menu</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
+                        <li><a href="#location">Location</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <section class="hero">
+                <div class="hero-content">
+                    <div class="food-gallery">
+                        <div class="food-item" title="Gourmet Appetizer"></div>
+                        <div class="food-item" title="Signature Meatballs"></div>
+                        <div class="food-item" title="Artisan Salad"></div>
+                    </div>
+                    
+                    <h1 class="hero-title">A genuine fine-dining experience awaits</h1>
+                    <p class="hero-subtitle">It's time to enjoy the finer things in life</p>
+                    
+                    <p class="hero-description">
+                        Our team does an exalt restaurant delivering the ultimate 
+                        culinary journey to diners everywhere with truly brilliant Asian 
+                        cuisine. We use locally-sourced, exotic ingredients to showcase 
+                        authentic recipes in a menu full of classics forms for today.
+                    </p>
+                    
+                    <button class="cta-button" onclick="showMessage()">Book Now</button>
+                </div>
+                
+                <div class="hero-image">
+                    <div class="decorative-leaf leaf-1">🍃</div>
+                    <div class="main-dish">
+                        <div class="dish-content">
+                            <span style="font-size: 2rem; color: white;">🍜</span>
+                        </div>
+                    </div>
+                    <div class="decorative-leaf leaf-2">🌿</div>
+                    
+                    <div class="floating-elements">
+                        <div class="floating-element">🥟</div>
+                        <div class="floating-element">🥚</div>
+                        <div class="floating-element">🌶️</div>
+                    </div>
+                    
+                    <div class="social-links">
+                        <a href="#" class="social-link">📘</a>
+                        <a href="#" class="social-link">📷</a>
+                        <a href="#" class="social-link">🐦</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        // Smooth scrolling for navigation
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = link.getAttribute('href');
+                
+                // Add active state animation
+                link.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    link.style.transform = 'scale(1)';
+                }, 150);
+            });
+        });
+
+        // Food gallery hover effects
+        document.querySelectorAll('.food-item').forEach((item, index) => {
+            item.addEventListener('mouseenter', () => {
+                item.style.background = `linear-gradient(45deg, 
+                    ${['#ff6b6b', '#4ecdc4', '#45b7d1'][index]}, 
+                    ${['#ff8e8e', '#6ee0d7', '#67c7e1'][index]})`;
+            });
+            
+            item.addEventListener('mouseleave', () => {
+                item.style.background = '#e8e5d9';
+            });
+        });
+
+        // Floating animation enhancement
+        function enhanceFloatingElements() {
+            const elements = document.querySelectorAll('.floating-element');
+            elements.forEach((el, index) => {
+                setInterval(() => {
+                    const randomX = (Math.random() - 0.5) * 20;
+                    const randomY = (Math.random() - 0.5) * 20;
+                    el.style.transform = `translate(${randomX}px, ${randomY}px)`;
+                }, 3000 + index * 1000);
+            });
+        }
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('.hero-image');
+            const speed = scrolled * 0.5;
+            parallax.style.transform = `translateY(${speed}px)`;
+        });
+
+        // Interactive dish rotation
+        const mainDish = document.querySelector('.main-dish');
+        let rotation = 0;
+
+        mainDish.addEventListener('mouseenter', () => {
+            const rotateInterval = setInterval(() => {
+                rotation += 2;
+                mainDish.style.transform = `rotate(${rotation}deg)`;
+            }, 50);
+            
+            mainDish.addEventListener('mouseleave', () => {
+                clearInterval(rotateInterval);
+                mainDish.style.transform = 'rotate(0deg)';
+                rotation = 0;
+            }, { once: true });
+        });
+
+        // CTA button interaction
+        function showMessage() {
+            const button = document.querySelector('.cta-button');
+            const originalText = button.textContent;
+            
+            button.textContent = 'Booking...';
+            button.style.background = '#6a7532';
+            
+            setTimeout(() => {
+                button.textContent = 'Table Reserved! ✓';
+                button.style.background = '#4a7c59';
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.background = '#7d8b3a';
+                }, 2000);
+            }, 1500);
+        }
+
+        // Initialize enhancements
+        enhanceFloatingElements();
+
+        // Header background change on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = '0 2px 30px rgba(0,0,0,0.15)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
+            }
+        });
+    </script>
+</body>
+</html>
