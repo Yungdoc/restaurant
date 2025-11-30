@@ -17,23 +17,44 @@
             font-family: Arial, sans-serif;
         }
 
-        /** back-btn **/
+        /** back-btn with floating animation **/
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
         .back-btn{
             padding: 15px 20px;
             font-weight: bold;
-            margin:0;
+            margin: 0;
             border: none;
             border-radius: 10px;
             background: linear-gradient(45deg, #667eea, #764ba2);
-            position: absolute;
-            top: 0;
-            right: auto;
-            left: 0;
-           
+            position: fixed;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            z-index: 9999;
+            cursor: pointer;
+            animation: float 3s ease-in-out infinite;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
         }
+
+        .back-btn:hover {
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.6);
+            transform: translateY(-25px);
+            background: linear-gradient(45deg, #764ba2, #667eea);
+        }
+
         .back-btn a{
             color: #fff;
             text-decoration: none;
+            display: block;
         }
 
         /* Top container with full screen slider */
